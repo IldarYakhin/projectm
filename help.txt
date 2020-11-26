@@ -1,0 +1,2 @@
+admin panel paths
+1. venv/lib/python3.8/site-packages/django/contrib/admin/templates/admin/base.html
