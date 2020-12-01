@@ -5,12 +5,19 @@
     <title>Project</title>
 </head>
 <body>
-<h1>Main page</h1>
+<h1>Succes</h1>
 {% if messages %}
     {% for message in messages %}
         <div class="alert alert-{{ message.tags }}"></div>
         {{ message }}
     {% endfor %}
+{% endif %}
+{% if data %}
+    <ul style="list-style-type:none;">
+        {% for key, value in data.items %}
+            <li>{{key}}</li>
+        {% endfor %}
+    </ul>
 {% endif %}
 </body>
 </html>

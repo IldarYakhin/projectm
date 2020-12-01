@@ -19,5 +19,8 @@ from django.urls import path, include
 app_name = 'mainapp'
 
 urlpatterns = [
-    path('', mainapp.index, name='index'),
+    path('', mainapp.index, name='main'),
+    path('create/', mainapp.bulk_creation_view, name='create'),
+    path('update/', mainapp.update, name='update'),
+    path('api/', mainapp.LicenseView.as_view(), name='api'),
 ]

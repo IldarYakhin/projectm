@@ -1,0 +1,10 @@
+{% block container %}
+    {% if request.user.is_staff %}
+    <form method="POST"> {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <input type="submit" value="Update" />
+    </form>
+    {% endif %}
+{% endblock container %}
