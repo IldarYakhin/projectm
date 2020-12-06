@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from mainapp.models import License
 from mainapp.my_func import generator, raspars
@@ -80,7 +80,6 @@ class LicenseView(APIView):
 
     def post(self, request):
         license = request.data.get('license')
-        print(license)
         # Create a License from the above data
         serializer = PostLicenseSerializer(data=license, many=False) #забраем данные
         if serializer.is_valid(raise_exception=True):

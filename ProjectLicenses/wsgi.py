@@ -1,5 +1,5 @@
 """
-WSGI config for ProjectLicences project.
+WSGI config for ProjectLicenses project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 

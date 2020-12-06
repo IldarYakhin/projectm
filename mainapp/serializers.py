@@ -15,10 +15,10 @@ class GetLicenseSerializer(serializers.Serializer):
     def create(self, validated_data):
         return License.objects.create(**validated_data)
 
-    def update(self, instance, validated_data):
-        instance.code = validated_data.get('code', instance.code)
-        instance.duration = validated_data.get('duration', instance.duration)
-        return instance
+    # def update(self, instance, validated_data):
+    #     instance.code = validated_data.get('code', instance.code)
+    #     instance.duration = validated_data.get('duration', instance.duration)
+    #     return instance
 
 
 class PostLicenseSerializer(serializers.Serializer):
@@ -32,7 +32,7 @@ class PostLicenseSerializer(serializers.Serializer):
     def create(self, validated_data):
         return License.objects.create(**validated_data)
 
-    def update(self, instance, validated_data):
-        instance.code = validated_data.get('code', instance.code)
-        instance.duration = validated_data.get('duration', instance.duration)
-        return instance
+    # def update(self, instance, validated_data):
+    #     instance.code = validated_data.get('code', instance.code)
+    #     instance.duration = validated_data.get('duration', instance.duration)
+    #     return instance
