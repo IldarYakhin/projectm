@@ -15,6 +15,7 @@ Including another URLconf
 """
 import mainapp.views as mainapp
 from django.urls import path, include
+from mainapp.views import LicenseView
 
 app_name = 'mainapp'
 
@@ -22,5 +23,5 @@ urlpatterns = [
     path('', mainapp.index, name='main'),
     path('create/', mainapp.bulk_creation_view, name='create'),
     path('update/', mainapp.update, name='update'),
-    path('api/', mainapp.LicenseView.as_view(), name='api'),
+    path('api/license/', LicenseView.as_view(), name='api'),
 ]

@@ -1,8 +1,14 @@
+{% extends 'mainapp/base.html' %}
+
 {% block container %}
     {% if request.user.is_staff %}
     <form method="POST"> {% csrf_token %}
+        <br>
+        <br>
     {{ form.as_p }}
         <input type="submit" value="Save"/>
     </form>
+        {% else %}
+        <a href="{% url 'admin:index' %}">Admin panel</a>
     {% endif %}
 {% endblock container %}

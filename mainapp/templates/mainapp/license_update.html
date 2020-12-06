@@ -1,0 +1,23 @@
+{% extends 'mainapp/base.html' %}
+
+{% block container %}
+    <br>
+    <br>
+    <p>You may increase or decrease duration.</p>
+    <p>Just put in the frame License and days qty after space</p>
+    <p>"ABCDE54321 2" for increase</p>
+    <p>OR</p>
+    <p>"ABCDE54321 -6" for decrease</p>
+    {% if request.user.is_staff %}
+    <form method="POST"> {% csrf_token %}
+        <br>
+        {{ form.as_p }}
+
+        <input type="submit" value="Update" />
+    </form>
+    {% else %}
+        <a href="{% url 'admin:index' %}">Admin panel</a>
+    {% endif %}
+
+
+{% endblock container %}

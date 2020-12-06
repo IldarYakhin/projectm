@@ -21,6 +21,6 @@ urlpatterns = [
     # path('snippets/', include('snippets.urls', namespace='snippets')),
     # path('auth/', include('authapp.urls', namespace='auth')),
 
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls,),
 
 ]

@@ -1,16 +1,1 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Project</title>
-</head>
-<body>
-<h1>Main page</h1>
-{% if messages %}
-    {% for message in messages %}
-        <div class="alert alert-{{ message.tags }}"></div>
-        {{ message }}
-    {% endfor %}
-{% endif %}
-</body>
-</html>
+{% extends 'mainapp/base.html' %}

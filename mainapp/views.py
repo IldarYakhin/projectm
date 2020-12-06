@@ -1,16 +1,15 @@
-from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
-
+from django.shortcuts import get_object_or_404
 from mainapp.models import License
-from mainapp.my_test import generator, raspars
-from tkinter import Tk
+from mainapp.my_func import generator, raspars
 from mainapp.forms import LicenseCreationForm, Snippet
 from django.contrib import messages
-from .serializers import LicenseSerializer
+
+from rest_framework.views import APIView
+from .serializers import GetLicenseSerializer, PostLicenseSerializer
 
 from rest_framework.response import Response
-from rest_framework.views import APIView
-from .serializers import LicenseSerializer
+
 # Create your views here.
 
 def index(request):
@@ -28,14 +27,8 @@ def bulk_creation_view(request):
             for key, value in to_input.items():
                 insert = License(code=key, duration=value)
                 insert.save()
-            messages.success(request, f'{qty} Licences duration {dur} days added and in your buffer.')
+            messages.success(request, f'{qty} Licences duration {dur} days added.')
             data = License.objects.all().order_by('-idlicense')[:qty]
-            # r = Tk()
-            # r.withdraw()
-            # r.clipboard_clear()
-            # r.clipboard_append(to_input)
-            # r.update() # now it stays on the clipboard after the window is closed
-            # # r.destroy()
 
             context = {
                 'data': to_input,
@@ -48,24 +41,22 @@ def bulk_creation_view(request):
         'form': form
     }
 
-    return render(request, 'mainapp/licence_create.html', context)
+    return render(request, 'mainapp/license_create.html', context)
 
-"""
-ссылки create update в админку
-"""
+
 def update(request):
     if request.method == 'POST':
         form = Snippet(request.POST or None)
         if form.is_valid():
             data = form['body'].value()
             data = raspars(data)
+            for key in data.keys():
+                obj = get_object_or_404(License, code=key)
             for key, value in data.items():
                 change = License.objects.get(code=key)
                 now = change.duration
-                print(change)
                 change.duration = int(now) + int(value)
                 change.save()
-                print(change)
             messages.success(request, f'{len(data)} Licences was updated.')
             form = Snippet(request.POST or None)
             context = {
@@ -78,12 +69,25 @@ def update(request):
     context = {
         'form': form,
     }
-    return render(request, 'mainapp/licence_update.html', context)
+    return render(request, 'mainapp/license_update.html', context)
 
 
 class LicenseView(APIView):
     def get(self, request):
         licences = License.objects.all()
-        serializer = LicenseSerializer(licences, many=True)
+        serializer = GetLicenseSerializer(licences, many=True)
         return Response({"License": serializer.data})
+
+    def post(self, request):
+        license = request.data.get('license')
+        print(license)
+        # Create a License from the above data
+        serializer = PostLicenseSerializer(data=license, many=False) #забраем данные
+        if serializer.is_valid(raise_exception=True):
+            license_saved = serializer.save()
+            resp_license = License.objects.get(code=license_saved.code) #получаем сохраненные данные для обратного вывода
+            serializer = GetLicenseSerializer(resp_license, many=False) #выводим даннные обратно
+        return Response(serializer.data)
+
+
 

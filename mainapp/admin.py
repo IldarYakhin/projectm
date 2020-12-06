@@ -9,7 +9,7 @@ admin.site.site_header = 'Project Licences admin panel'
 class LicenseAdmin(admin.ModelAdmin):
     list_display = ('idlicense', 'code', 'duration', 'activated',)
     list_filter = ('activated',)
-    change_list_template = ('admin/licences_admin.html')
+    change_list_template = ('admin/licenses_admin.html')
 
 admin.site.register(License, LicenseAdmin)
 admin.site.unregister(Group)

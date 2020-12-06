@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Project</title>
-</head>
-<body>
+{% extends 'mainapp/base.html' %}
+
+{% block container %}
 <h1>Succes</h1>
 {% if messages %}
     {% for message in messages %}
@@ -19,5 +15,5 @@
         {% endfor %}
     </ul>
 {% endif %}
-</body>
-</html>
+
+{% endblock container %}
